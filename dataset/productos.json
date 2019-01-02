@@ -3,7 +3,7 @@
         "id": 1,
         "nombre": "Carne",
         "fecha_vencimiento": "2018/12/30",
-        "status": 0,
+        "status": 1,
         "tipo_producto": 1,
         "nivel_id": 1
     },

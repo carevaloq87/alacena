@@ -29,15 +29,38 @@ var app = new Vue({
                 .catch(function (error) {
                     console.log(error);
                 });
-                axios.get(self.url_productos)
-                    .then(function (response) {
-                        console.log(response);
-                        self.productos = response.data;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+            axios.get(self.url_productos)
+                .then(function (response) {
+                    console.log(response);
+                    self.productos = response.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
 
+        },
+        nombre_tipo_producto_por_id: function (id) {
+            let self = this;
+            for (let index = 0; index < self.tipo_productos.length; index++) {
+                if (self.tipo_productos[index].id == id) {
+                    return self.tipo_productos[index].nombre;
+                }
+            }
+        },
+        nombre_status_por_id: function (id) {
+            let nombre_status = 'activo';
+            if (id < 1) {
+                nombre_status = 'inactivo';
+            }
+            return nombre_status;
+        },
+        nombre_nivel_por_id: function (id) {
+            let self = this;
+            for (let index = 0; index < self.niveles.length; index++) {
+                if (self.niveles[index].id == id) {
+                    return self.niveles[index].nombre;
+                }
+            }
         }
     },
     mounted(){

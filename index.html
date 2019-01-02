@@ -50,9 +50,9 @@
                     <th scope="row" v-html="item.id"></th>
                     <td v-html="item.nombre"></td>
                     <td v-html="item.fecha_vencimiento"></td>
-                    <td v-html="item.status"></td>
-                    <td v-html="item.tipo_producto"></td>
-                    <td v-html="item.nivel_id"></td>
+                    <td v-html="nombre_status_por_id(item.status)"></td>
+                    <td v-html="nombre_tipo_producto_por_id(item.tipo_producto)"></td>
+                    <td v-html="nombre_nivel_por_id(item.nivel_id)"></td>
                 </tr>
             </tbody>
         </table>
