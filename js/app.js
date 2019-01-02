@@ -41,26 +41,23 @@ var app = new Vue({
         },
         nombre_tipo_producto_por_id: function (id) {
             let self = this;
-            for (let index = 0; index < self.tipo_productos.length; index++) {
-                if (self.tipo_productos[index].id == id) {
-                    return self.tipo_productos[index].nombre;
-                }
-            }
+            return self.iterar_obj(self.tipo_productos, id);
         },
         nombre_status_por_id: function (id) {
-            let nombre_status = 'activo';
+            let nombre_status = 'Activo';
             if (id < 1) {
-                nombre_status = 'inactivo';
+                nombre_status = 'Inactivo';
             }
             return nombre_status;
         },
         nombre_nivel_por_id: function (id) {
             let self = this;
-            for (let index = 0; index < self.niveles.length; index++) {
-                if (self.niveles[index].id == id) {
-                    return self.niveles[index].nombre;
-                }
-            }
+            return self.iterar_obj(self.niveles, id);
+        },
+        iterar_obj: function (objetos, id) {
+            let nombre = '';
+            objetos.forEach( objeto => (objeto.id == id ? nombre = objeto.nombre : '') );
+            return nombre;
         }
     },
     mounted(){
