@@ -1,13 +1,7 @@
 
-Vue.component('productos', {
-    props: ['producto', 'key'],
-    template: `<div class="col-sm-12">
-                        <span v-html="producto.nombre"></span> 
-                </div>`
-})
 
 var app = new Vue({
-    el: '#app',
+    el: '#alacena',
     data: {
         niveles: [],
         tipo_productos: [],
@@ -43,7 +37,7 @@ var app = new Vue({
                     .catch(function (error) {
                         console.log(error);
                     });
-                
+
         }
     },
     mounted(){
