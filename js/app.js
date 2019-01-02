@@ -13,14 +13,22 @@ var app = new Vue({
     methods: {
         cargar_dataset: function () {
             let self = this;
+            self.traer_niveles();
+            self.traer_tipos_producto();
+            self.traer_productos();
+        },
+        traer_niveles: function () {
+            let self = this;
             axios.get(self.url_niveles)
                 .then(function (response) {
-                    console.log(response);
                     self.niveles = response.data;
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
+        },
+        traer_tipos_producto: function () {
+            let self = this;
             axios.get(self.url_tipo_productos)
                 .then(function (response) {
                     console.log(response);
@@ -29,6 +37,9 @@ var app = new Vue({
                 .catch(function (error) {
                     console.log(error);
                 });
+        },
+        traer_productos: function () {
+            let self = this;
             axios.get(self.url_productos)
                 .then(function (response) {
                     console.log(response);
@@ -37,7 +48,6 @@ var app = new Vue({
                 .catch(function (error) {
                     console.log(error);
                 });
-
         },
         nombre_tipo_producto_por_id: function (id) {
             let self = this;
@@ -60,6 +70,7 @@ var app = new Vue({
             return nombre;
         }
     },
+    computed: {},
     mounted(){
         this.cargar_dataset()
     }
