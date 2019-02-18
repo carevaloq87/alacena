@@ -19,47 +19,21 @@ var app = new Vue({
         filtro_actual: -1,
         url_niveles: './dataset/nivel.json',
         url_productos: './dataset/productos.json',
-        url_tipo_productos: './dataset/tipo_producto.json'
+        url_tipo_productos: './dataset/tipo_producto.json',
+        data_set_generator: {}
     },
     methods: {
-        cargar_dataset: function () {
+        ajax: function (url, ) {
             let self = this;
-            self.traer_niveles();
-            self.traer_tipos_producto();
-            self.traer_productos();
+            fetch(url).then(data => data.json()).then(data => self.data_set_generator.next(data));
         },
-        traer_niveles: function () {
-            let self = this;
-            axios.get(self.url_niveles)
-                .then(function (response) {
-                    self.niveles = response.data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        },
-        traer_tipos_producto: function () {
-            let self = this;
-            axios.get(self.url_tipo_productos)
-                .then(function (response) {
-                    console.log(response);
-                    self.tipo_productos = response.data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        },
-        traer_productos: function () {
-            let self = this;
-            axios.get(self.url_productos)
-                .then(function (response) {
-                    console.log(response);
-                    self.productos_a_mostrar = self.productos = response.data;
-                    
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+        cargar_dataset_gen: function* () {
+            this.niveles = yield this.ajax(this.url_niveles);
+            console.log("niveles", this.niveles);
+            this.tipo_productos = yield this.ajax(this.url_tipo_productos);
+            console.log("tipo_productos", this.tipo_productos);
+            this.productos_a_mostrar = yield this.ajax(this.url_productos);
+            console.log("productos_a_mostrar", this.productos_a_mostrar);
         },
         nombre_tipo_producto_por_id: function (id) {
             let self = this;
@@ -113,7 +87,8 @@ var app = new Vue({
     },
     computed: {},
     mounted(){
-        this.cargar_dataset()
+        this.data_set_generator = this.cargar_dataset_gen();
+        this.data_set_generator.next();
     }
 
 });
